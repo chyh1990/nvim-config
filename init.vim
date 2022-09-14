@@ -24,9 +24,11 @@ if exists("g:neovide")
 endif
 
 autocmd FileType markdown setlocal spell
-" autocmd BufWritePost * lua vim.lsp.buf.format({aysnc = false})
 augroup GO_LSP
 	autocmd!
 	autocmd BufWritePre *.go :silent! lua vim.lsp.buf.format({async = false})
 	autocmd BufWritePre *.go :silent! lua GoImports(3000)
 augroup END
+autocmd BufEnter,BufNew term://* startinsert
+
+set mouse=a

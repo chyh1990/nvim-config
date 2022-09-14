@@ -41,7 +41,9 @@ vim.keymap.set('n', '<m-->', '<c-w>-')
 vim.keymap.set('n', '<m-=>', '<c-w>+')
 -- b: buffer
 vim.keymap.set('n', '<leader>bn', ':bn<cr>')
+vim.keymap.set('n', '<C-n>', ':bn<cr>')
 vim.keymap.set('n', '<leader>bp', ':bp<cr>')
+vim.keymap.set('n', '<C-p>', ':bp<cr>')
 vim.keymap.set('n', '<leader>bd', ':Bdelete<cr>')
 -- p: plugins
 vim.keymap.set('n', '<leader>pi', ':PackerInstall<cr>')
@@ -72,14 +74,14 @@ vim.keymap.set('n', '<leader>is', function() require('rust-tools.inlay_hints').s
 vim.keymap.set('n', '<leader>id', function() require('rust-tools.inlay_hints').diable_inlay_hints() end)
 vim.keymap.set('n', '<f4>', ':SymbolsOutline<cr>')
 
-vim.keymap.set('n', '<leader>gD', vim.lsp.buf.declaration)
-vim.keymap.set('n', '<leader>gd', vim.lsp.buf.definition)
+vim.keymap.set('n', 'gD', vim.lsp.buf.declaration)
+vim.keymap.set('n', 'gd', vim.lsp.buf.definition)
+vim.keymap.set('n', 'gr', vim.lsp.buf.references)
+vim.keymap.set('n', '<C-K>', vim.lsp.buf.hover)
 vim.keymap.set('n', '<leader>gt', vim.lsp.buf.type_definition)
 vim.keymap.set('n', '<leader>gi', vim.lsp.buf.implementation)
-vim.keymap.set('n', '<C-K>', vim.lsp.buf.implementation)
 vim.keymap.set('n', '<leader>gp', ':Lspsaga diagnostic_jump_prev<cr>')
 vim.keymap.set('n', '<leader>gn', ':Lspsaga diagnostic_jump_next<cr>')
-vim.keymap.set('n', '<leader>gr', vim.lsp.buf.references)
 
 vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder)
 vim.keymap.set('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder)
@@ -89,6 +91,8 @@ vim.keymap.set('n', '<leader>wl', function() print(vim.inspect(vim.lsp.buf.list_
 -- use <f5> to toggle terminal, this can be set in lua/configs/terminal.lua
 -- the default position is also set in lua/configs/terminal.lua
 vim.keymap.set('t', '<C-g>', '<C-\\><C-n>')
+-- switch to another panel with C-w
+vim.keymap.set('t', '<C-w>', '<C-\\><C-n><C-w>')
 vim.keymap.set('n', '<leader>tt', ':ToggleTerm direction=tab<cr>')
 vim.keymap.set('n', '<leader>tn', function() require('toggleterm.terminal').Terminal:new():toggle() end)
 vim.keymap.set('n', '<leader>tf', ':ToggleTerm direction=float<cr>')
