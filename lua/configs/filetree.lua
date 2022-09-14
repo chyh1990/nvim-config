@@ -38,17 +38,18 @@ function M.config()
 			timeout = 500,
 		},
 		view                 = {
-			width = 30,
-			height = 30,
-			hide_root_folder = false,
-			side = 'left',
-			mappings = {
-				custom_only = false,
-				list = {}
-			},
-			number = false,
-			relativenumber = false,
-			signcolumn = "yes"
+            adaptive_size = true,
+			-- width = 30,
+			-- height = 30,
+			-- hide_root_folder = false,
+			-- side = 'left',
+			-- mappings = {
+			-- 	custom_only = false,
+			-- 	list = {}
+			-- },
+			-- number = false,
+			-- relativenumber = false,
+			-- signcolumn = "yes"
 		},
 		trash                = {
 			cmd = "trash",

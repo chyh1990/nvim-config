@@ -15,10 +15,10 @@ end
 -- vim.g.mapleader = ';'
 
 -- keymaps
-vim.keymap.set('i', '<C-g>', '<esc>')
-vim.keymap.set('i', '<C-;>', '::') -- for C++ and Rust
-vim.keymap.set('n', '<leader>vl', set_bg_light)
-vim.keymap.set('n', '<leader>vd', set_bg_dark)
+-- vim.keymap.set('i', '<C-g>', '<esc>')
+-- vim.keymap.set('i', '<C-;>', '::') -- for C++ and Rust
+-- vim.keymap.set('n', '<leader>vl', set_bg_light)
+-- vim.keymap.set('n', '<leader>vd', set_bg_dark)
 vim.keymap.set('n', '<leader>', ':')
 -- f: file tree
 vim.keymap.set('n', '<F3>', ':NvimTreeToggle<cr>')
@@ -76,6 +76,7 @@ vim.keymap.set('n', '<leader>gD', vim.lsp.buf.declaration)
 vim.keymap.set('n', '<leader>gd', vim.lsp.buf.definition)
 vim.keymap.set('n', '<leader>gt', vim.lsp.buf.type_definition)
 vim.keymap.set('n', '<leader>gi', vim.lsp.buf.implementation)
+vim.keymap.set('n', '<C-K>', vim.lsp.buf.implementation)
 vim.keymap.set('n', '<leader>gp', ':Lspsaga diagnostic_jump_prev<cr>')
 vim.keymap.set('n', '<leader>gn', ':Lspsaga diagnostic_jump_next<cr>')
 vim.keymap.set('n', '<leader>gr', vim.lsp.buf.references)
