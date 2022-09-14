@@ -83,4 +83,11 @@ return require('packer').startup(function()
 	-- ascii image
 	use 'samodostal/image.nvim'
 
+    use {
+        "max397574/better-escape.nvim",
+        config = function()
+            require("better_escape").setup()
+        end,
+    }
+
 end)

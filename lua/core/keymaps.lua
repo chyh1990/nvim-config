@@ -12,7 +12,7 @@ local function set_bg_dark()
 	vim.cmd('colorscheme ' .. colors_name)
 end
 
-vim.g.mapleader = ';'
+-- vim.g.mapleader = ';'
 
 -- keymaps
 vim.keymap.set('i', '<C-g>', '<esc>')

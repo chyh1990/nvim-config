@@ -1,6 +1,7 @@
 lua require('core.init')
 
 set clipboard^=unnamed,unnamedplus
+set autochdir
 
 if has('unix')
 	set thesaurus+=/usr/share/dict/words
@@ -23,4 +24,3 @@ if exists("g:neovide")
 endif
 
 autocmd FileType markdown setlocal spell
-

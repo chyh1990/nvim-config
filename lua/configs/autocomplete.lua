@@ -18,17 +18,53 @@ function M.config()
 			end,
 		},
 		mapping = {
-			['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
-			['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
-			['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
-			['<C-y>'] = cmp.config.disable,
-			['<C-e>'] = cmp.mapping({
-				i = cmp.mapping.abort(),
-				c = cmp.mapping.close(),
-			}),
-			-- Accept currently selected item...
-			-- Set `select` to `false` to only confirm explicitly selected items:
-			['<CR>'] = cmp.mapping.confirm({ select = true }),
+			['<Up>'] = cmp.mapping.select_prev_item(select_opts),
+			['<Down>'] = cmp.mapping.select_next_item(select_opts),
+
+			['<C-p>'] = cmp.mapping.select_prev_item(select_opts),
+			['<C-n>'] = cmp.mapping.select_next_item(select_opts),
+
+			['<C-u>'] = cmp.mapping.scroll_docs(-4),
+			['<C-f>'] = cmp.mapping.scroll_docs(4),
+
+			['<C-e>'] = cmp.mapping.abort(),
+			['<CR>'] = cmp.mapping.confirm({select = true}),
+
+			['<C-d>'] = cmp.mapping(function(fallback)
+				if luasnip.jumpable(1) then
+					luasnip.jump(1)
+				else
+					fallback()
+				end
+			end, {'i', 's'}),
+
+			['<C-b>'] = cmp.mapping(function(fallback)
+				if luasnip.jumpable(-1) then
+					luasnip.jump(-1)
+				else
+					fallback()
+				end
+			end, {'i', 's'}),
+
+			['<Tab>'] = cmp.mapping(function(fallback)
+				local col = vim.fn.col('.') - 1
+
+				if cmp.visible() then
+					cmp.select_next_item(select_opts)
+				elseif col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
+					fallback()
+				else
+					cmp.complete()
+				end
+			end, {'i', 's'}),
+
+			['<S-Tab>'] = cmp.mapping(function(fallback)
+				if cmp.visible() then
+					cmp.select_prev_item(select_opts)
+				else
+					fallback()
+				end
+			end, {'i', 's'}),	
 		},
 		sources = cmp.config.sources({
 			{ name = 'nvim_lsp' },
@@ -139,8 +175,8 @@ function M.config()
 		saga_winblend = 0,
 		move_in_saga = { prev = '<C-p>',next = '<C-n>'},
 		diagnostic_header = { " ", " ", " ", "ﴞ " },
-		show_diagnostic_source = true,
-		diagnostic_source_bracket = {},
+		-- show_diagnostic_source = true,
+		-- diagnostic_source_bracket = {},
 		max_preview_lines = 10,
 		code_action_icon = "",
 		code_action_num_shortcut = true,
@@ -172,7 +208,7 @@ function M.config()
 		},
 		rename_action_quit = "q",
 		rename_in_select = true,
-		definition_preview_icon = "  ",
+		-- definition_preview_icon = "  ",
 		-- show symbols in winbar must nightly
 		symbol_in_winbar = {
 			in_custom = false,
