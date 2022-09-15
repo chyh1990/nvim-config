@@ -30,5 +30,3 @@ augroup GO_LSP
 	autocmd BufWritePre *.go :silent! lua GoImports(3000)
 augroup END
 autocmd BufEnter,BufNew term://* startinsert
-
-set mouse=a

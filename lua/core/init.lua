@@ -51,6 +51,7 @@ require('image').setup {
 
 require("mason").setup()
 require("mason-lspconfig").setup()
+require('guess-indent').setup()
 
 -- Load plugin configs
 -- plugins without extra configs are configured directly here

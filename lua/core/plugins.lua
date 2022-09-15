@@ -78,6 +78,7 @@ return require('packer').startup(function()
 
 	-- indent guide
 	use "lukas-reineke/indent-blankline.nvim"
+    use "nmac427/guess-indent.nvim"
 
 	-- startup screen
 	use 'leslie255/aleph-nvim'
@@ -88,11 +89,6 @@ return require('packer').startup(function()
 	-- ascii image
 	use 'samodostal/image.nvim'
 
-    use {
-        "max397574/better-escape.nvim",
-        config = function()
-            require("better_escape").setup()
-        end,
-    }
+    use "max397574/better-escape.nvim"
 
 end)
