@@ -1,7 +1,7 @@
 lua require('core.init')
 
 set clipboard^=unnamed,unnamedplus
-set autochdir
+" set autochdir
 
 if has('unix')
 	set thesaurus+=/usr/share/dict/words
