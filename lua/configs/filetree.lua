@@ -39,17 +39,17 @@ function M.config()
 		},
 		view                 = {
             adaptive_size = true,
-			-- width = 30,
-			-- height = 30,
-			-- hide_root_folder = false,
+			width = 30,
+			height = 30,
+			hide_root_folder = false,
 			side = 'left',
-			-- mappings = {
-			-- 	custom_only = false,
-			-- 	list = {}
-			-- },
-			-- number = false,
-			-- relativenumber = false,
-			-- signcolumn = "yes"
+			mappings = {
+				custom_only = false,
+				list = {}
+			},
+			number = false,
+			relativenumber = false,
+			signcolumn = "yes"
 		},
 		trash                = {
 			cmd = "trash",

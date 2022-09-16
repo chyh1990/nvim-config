@@ -91,4 +91,6 @@ return require('packer').startup(function()
 
     use "max397574/better-escape.nvim"
 
+	use "github/copilot.vim"
+	-- use "hrsh7th/cmp-copilot"
 end)
