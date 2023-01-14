@@ -40,12 +40,14 @@ function M.config()
 		view                 = {
             adaptive_size = true,
 			width = 30,
-			height = 30,
+			-- height = 30,
 			hide_root_folder = false,
 			side = 'left',
 			mappings = {
 				custom_only = false,
-				list = {}
+				list = {
+					-- { key = "<CR>", action = "edit_in_place" }
+				}
 			},
 			number = false,
 			relativenumber = false,
