@@ -92,7 +92,7 @@ vim.keymap.set('n', '<leader>bn', ':bn<cr>')
 vim.keymap.set('n', '<C-n>', ':bn<cr>')
 vim.keymap.set('n', '<leader>bp', ':bp<cr>')
 vim.keymap.set('n', '<C-p>', ':bp<cr>')
-vim.keymap.set('n', '<leader>bd', ':Bdelete<cr>')
+vim.keymap.set('n', '<leader>bd', ':BufDel<cr>')
 -- p: plugins
 vim.keymap.set('n', '<leader>pi', ':PackerInstall<cr>')
 vim.keymap.set('n', '<leader>pc', ':PackerClean<cr>')
