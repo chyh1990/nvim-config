@@ -12,6 +12,53 @@ local function set_bg_dark()
 	vim.cmd('colorscheme ' .. colors_name)
 end
 
+local function get_uri_data(result)
+  local uri, range
+
+  if type(result[1]) == 'table' then
+    uri = result[1].uri or result[1].targetUri
+    range = result[1].range or result[1].targetSelectionRange
+  else
+    uri = result.uri or result.targetUri
+    range = result.range or result.targetSelectionRange
+  end
+
+  if not uri then
+    vim.notify('[Lspsaga] Does not find target uri', vim.log.levels.WARN)
+    return
+  end
+
+  local bufnr = vim.uri_to_bufnr(uri)
+  local link = vim.uri_to_fname(uri)
+
+  if not vim.api.nvim_buf_is_loaded(bufnr) then
+    vim.fn.bufload(bufnr)
+  end
+
+  local start_line = range.start.line
+  local start_char_pos = range.start.character
+  local end_char_pos = range['end'].character
+
+  return bufnr, link, start_line, start_char_pos, end_char_pos
+end
+
+function GotoDefinition()
+  local libs = require('lspsaga.libs')
+  vim.lsp.handlers['textDocument/definition'] = function(_, result, _, _)
+    if not result or vim.tbl_isempty(result) then
+	  print("No LSP location available")
+	  vim.api.nvim_command('normal! gd')
+      return
+    end
+    local _, link, start_line, start_char_pos, _ = get_uri_data(result)
+    vim.api.nvim_command('edit ' .. link)
+    vim.api.nvim_win_set_cursor(0, { start_line + 1, start_char_pos })
+    local width = #vim.api.nvim_get_current_line()
+    libs.jump_beacon({ start_line, start_char_pos }, width)
+  end
+  vim.lsp.buf.definition()
+end
+
 -- vim.g.mapleader = ';'
 
 -- keymaps
@@ -25,9 +72,10 @@ vim.keymap.set('n', '<F3>', ':NvimTreeToggle<cr>')
 vim.keymap.set('n', '<leader>ft', ':NvimTreeToggle<cr>')
 vim.keymap.set('n', '<leader>ff', ':NvimTreeFocus<cr>')
 -- y: telescope
-vim.keymap.set('n', '<F9>', function() require 'telescope.builtin'.find_files {} end)
-vim.keymap.set('n', '<F10>', function() require 'telescope.builtin'.git_files {} end)
-vim.keymap.set('n', '<F11>', function() require 'telescope.builtin'.buffers {} end)
+vim.keymap.set('n', '<F9>', function() require 'telescope.builtin'.grep_string {} end)
+vim.keymap.set('n', '<F10>', function() require 'telescope.builtin'.find_files {} end)
+vim.keymap.set('n', '<F11>', function() require 'telescope.builtin'.git_files {} end)
+-- vim.keymap.set('n', '<F11>', function() require 'telescope.builtin'.buffers {} end)
 vim.keymap.set({ 'n', 'i' }, '<C-p>', function() require 'telescope.builtin'.registers {} end)
 -- w: window
 vim.keymap.set('n', '<leader>w1', '<c-w>o')
@@ -64,7 +112,7 @@ vim.keymap.set('n', '<leader>ld', ':Lspsaga preview_definition<cr>')
 vim.keymap.set('n', '<leader>lr', ':Lspsaga rename<cr>')
 vim.keymap.set('n', '<leader>lh', vim.lsp.buf.signature_help)
 vim.keymap.set('n', '<leader>la', vim.lsp.buf.code_action)
-vim.keymap.set('n', '<leader>lf', vim.lsp.buf.formatting)
+vim.keymap.set('n', '<leader>lf', vim.lsp.buf.format)
 vim.keymap.set('n', '<leader>lb', ':SymbolsOutline<cr>')
 vim.keymap.set('n', '<leader>la', ':Lspsaga code_action<cr>')
 vim.keymap.set('n', '<leader>lu', ':Lspsaga lsp_finder<cr>')
@@ -74,10 +122,13 @@ vim.keymap.set('n', '<leader>is', function() require('rust-tools.inlay_hints').s
 vim.keymap.set('n', '<leader>id', function() require('rust-tools.inlay_hints').diable_inlay_hints() end)
 vim.keymap.set('n', '<f4>', ':SymbolsOutline<cr>')
 
+-- local opts = { noremap=true, silent=true }
 vim.keymap.set('n', 'gD', vim.lsp.buf.declaration)
-vim.keymap.set('n', 'gd', vim.lsp.buf.definition)
+-- vim.keymap.set('n', 'gd', vim.lsp.buf.definition)
+vim.keymap.set('n', 'gd', GotoDefinition)
 vim.keymap.set('n', 'gr', vim.lsp.buf.references)
 vim.keymap.set('n', '<C-K>', vim.lsp.buf.hover)
+-- vim.keymap.set('n', '<C-K>', ':Lspsaga hover_doc<cr>', opts)
 vim.keymap.set('n', '<leader>gt', vim.lsp.buf.type_definition)
 vim.keymap.set('n', '<leader>gi', vim.lsp.buf.implementation)
 vim.keymap.set('n', '<leader>gp', ':Lspsaga diagnostic_jump_prev<cr>')

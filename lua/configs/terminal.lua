@@ -2,7 +2,7 @@ local M = {}
 function M.config()
 	require("toggleterm").setup {
 		-- size can be a number or function which is passed the current terminal
-		size = 30,
+		size = 20,
 		open_mapping = "<f5>",
 		on_open = function() end, -- function to run when the terminal opens
 		on_close = function() end, -- function to run when the terminal closes

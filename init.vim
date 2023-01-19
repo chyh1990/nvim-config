@@ -31,8 +31,8 @@ augroup GO_LSP
 augroup END
 autocmd BufEnter,BufNew term://* startinsert
 
-let g:copilot_no_maps = v:true
-imap <silent><script><expr> <C-J> copilot#Accept("")
-imap <C-]> <Cmd>call copilot#Next()<CR>
-imap <C-[> <Cmd>call copilot#Previous()<CR>
+" let g:copilot_no_maps = v:true
+" imap <silent><script><expr> <C-J> copilot#Accept("")
+" imap <C-]> <Cmd>call copilot#Next()<CR>
+" imap <C-[> <Cmd>call copilot#Previous()<CR>
 
